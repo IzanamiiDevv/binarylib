@@ -7,7 +7,7 @@
     || sizeof(_ElementSize) != sizeof(size_t)) return; \
     FILE* fstream = fopen((_Filename), "ab");\
     if(fstream == NULL) {printf("Error: Cant connect to the File."); return;}\
-    (_Type) databuff = (_Buffer); \
+    _Type databuff = (_Type)(_Buffer); \
     fwrite(&(databuff), (_ElementSize), 1, (fstream)); \
     fclose(fstream); \
 }
