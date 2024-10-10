@@ -9,19 +9,22 @@
     if(fstream == NULL) {printf("Error: Cant connect to the File."); return;}\
     (_Type) databuff = (_Buffer); \
     fwrite(&(databuff), (_ElementSize), 1, (fstream)); \
+    fclose(fstream); \
 }
 
 void binaryWriteRef(const char* _Filename, const void* _Buffer, size_t _ElementSize){
     FILE* fstream = fopen(_Filename, "ab");
-    if(fstream == NULL) {
-        printf("Error: Cant connect to the File.");
-        return;
-    }
+    if(fstream == NULL) {printf("Error: Cant connect to the File.");return;}
 
     fwrite(_Buffer, _ElementSize, 1, fstream);
     fclose(fstream);
 }
 
 void binaryRead(const char* _FileName, unsigned long _Address , void* _Location, size_t _ElementSize){
-    
+    FILE* fstream = fopen(_FileName, "rb");
+    if(fstream == NULL) {printf("Error: Cant connect to the File.");return;}
+
+    fseek(fstream, _Address, SEEK_SET);
+    fread(_Location, _ElementSize, 1, fstream);
+    fclose(fstream);
 }
